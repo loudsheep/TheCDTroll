@@ -97,23 +97,25 @@ namespace TheCDTrollGUI
             // listBox2
             // 
             this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(12, 252);
+            this.listBox2.Location = new System.Drawing.Point(27, 247);
             this.listBox2.Name = "listBox2";
             this.listBox2.Size = new System.Drawing.Size(360, 199);
             this.listBox2.TabIndex = 5;
+            this.listBox2.Visible = false;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 236);
+            this.label2.Location = new System.Drawing.Point(13, 261);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(84, 13);
             this.label2.TabIndex = 6;
             this.label2.Text = "Last commands:";
+            this.label2.Visible = false;
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(12, 458);
+            this.button4.Location = new System.Drawing.Point(12, 209);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(360, 49);
             this.button4.TabIndex = 7;
@@ -125,7 +127,7 @@ namespace TheCDTrollGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 519);
+            this.ClientSize = new System.Drawing.Size(384, 271);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.listBox2);

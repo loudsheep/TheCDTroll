@@ -167,7 +167,7 @@ namespace TheCDTrollGUI
             {
                 //SendDirectMessage(message, ip, port);
                 Thread thread = new Thread(ListenOnAddress);
-                thread.Start(new ListenData() { ip = ip, func = func});
+                //thread.Start(new ListenData() { ip = ip, func = func});
                 threads.Add(thread);
             }
 
@@ -180,7 +180,7 @@ namespace TheCDTrollGUI
         public class ListenData
         {
             public IPAddress ip;
-            public Func<string, string> func;
+            public Func<string, int> func;
         }
 
         public static void ListenOnAddress(object listenData)

