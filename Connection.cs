@@ -242,6 +242,7 @@ namespace TheCDTrollGUI
                     {
                         // Blocks until a message returns on this socket from a remote host.
                         Byte[] receiveBytes = client.Receive(ref iPEndPoint);
+                        Console.WriteLine(client.ToString());
 
                         string returnData = Encoding.ASCII.GetString(receiveBytes);
 

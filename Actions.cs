@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -16,6 +17,7 @@ namespace TheCDTrollGUI
             {"open", Actions.Open},
             {"close", Actions.Close},
             {"msg", Actions.Msg},
+            {"start", Actions.Start},
         };
 
         public static int ExecuteCommand(string command)
@@ -65,6 +67,17 @@ namespace TheCDTrollGUI
                 Console.WriteLine("message");
             }
 
+            return 0;
+        }
+
+        public static int Start(string[] args)
+        {
+            if (args.Length == 0) return -1;
+
+            for(int i=0; i<args.Length; i++)
+            {
+                Process.Start(args[i]);
+            }
             return 0;
         }
     }
