@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace TheCDTrollGUI
 {
@@ -14,10 +15,11 @@ namespace TheCDTrollGUI
         public static readonly Dictionary<string, Func<string[], int>> functions = new Dictionary<string, Func<string[], int>>() 
         {
             // every element represents a command and a method for executing it {command, method},
-            {"open", Actions.Open},
-            {"close", Actions.Close},
-            {"msg", Actions.Msg},
-            {"start", Actions.Start},
+            { "open", Actions.Open },
+            { "close", Actions.Close },
+            { "msg", Actions.Msg },
+            { "start", Actions.Start },
+            { "rickroll", Actions.RickRoll },
         };
 
         public static int ExecuteCommand(string command)
@@ -58,14 +60,44 @@ namespace TheCDTrollGUI
 
         public static int Msg(string[] args)
         {
+            MessageBoxIcon boxIcon = MessageBoxIcon.None;
+            string message = "";
+            string title = "Title";
             if(args.Length > 0)
             {
-                Console.WriteLine(string.Join(" ", args));
+                for(int i=0; i<args.Length; i++ )
+                {
+                    if(args[i].StartsWith("-"))
+                    {
+                        if (args[i] == "-error") boxIcon = MessageBoxIcon.Error;
+                        else if (args[i] == "-warning") boxIcon = MessageBoxIcon.Warning;
+                        else if (args[i] == "-information") boxIcon = MessageBoxIcon.Information;
+                        else if (args[i] == "-question") boxIcon = MessageBoxIcon.Question;
+                        else if(args[i] == "-t")
+                        {
+                            if(i < args.Length - 1)
+                            {
+                                title = args[i + 1];
+                                i++;
+                            }
+                        }
+                        else
+                        {
+                            message += " " +  args[i];
+                        }
+                    }
+                    else
+                    {
+                        message += " " + args[i];
+                    }
+                }
             }
             else
             {
-                Console.WriteLine("message");
+                message = "Message";
             }
+
+            MessageBox.Show(message, title, MessageBoxButtons.OK, boxIcon);
 
             return 0;
         }
@@ -76,8 +108,19 @@ namespace TheCDTrollGUI
 
             for(int i=0; i<args.Length; i++)
             {
-                Process.Start(args[i]);
+                try
+                {
+                    Process.Start(args[i]);
+                }
+                catch(Exception) { }
             }
+            return 0;
+        }
+
+        public static int RickRoll(string[] args)
+        {
+            Start(new string[]{"https://www.youtube.com/watch?v=dQw4w9WgXcQ"});
+
             return 0;
         }
     }

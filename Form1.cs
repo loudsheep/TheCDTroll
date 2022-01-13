@@ -143,7 +143,7 @@ namespace TheCDTrollGUI
 
         private void ExitItemClick(object Sender, EventArgs e)
         {
-            this.Close();
+            Application.Exit();
         }
 
         [DllImport("user32.dll")]
@@ -170,6 +170,17 @@ namespace TheCDTrollGUI
             Form2 form = new Form2();
             form.Show();
             //Close();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if(e.CloseReason == CloseReason.UserClosing)
+            {
+                e.Cancel = true;
+                this.WindowState = FormWindowState.Minimized;
+                Hide();
+                notifyIcon1.Visible = true;
+            }
         }
     }
 }
