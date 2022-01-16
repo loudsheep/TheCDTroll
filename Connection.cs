@@ -180,7 +180,7 @@ namespace TheCDTrollGUI
         public class ListenData
         {
             public IPAddress ip;
-            public Func<string, int> func;
+            public Func<string, IPAddress, int> func;
         }
 
         public static void ListenOnAddress(object listenData)
@@ -215,7 +215,8 @@ namespace TheCDTrollGUI
                         while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
                         {
                             data = Encoding.ASCII.GetString(bytes, 0, i);
-                            ls.func(data);
+                            // fix if used
+                            //ls.func(data);
                         }
 
                         client.Close();
@@ -242,11 +243,11 @@ namespace TheCDTrollGUI
                     {
                         // Blocks until a message returns on this socket from a remote host.
                         Byte[] receiveBytes = client.Receive(ref iPEndPoint);
-                        Console.WriteLine(client.ToString());
+                        Console.WriteLine(iPEndPoint.Address);
 
                         string returnData = Encoding.ASCII.GetString(receiveBytes);
 
-                        ld.func(returnData);
+                        ld.func(returnData, iPEndPoint.Address);
                     }
                     catch (Exception e)
                     {

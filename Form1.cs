@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Net.NetworkInformation;
+using System.Net;
 
 namespace TheCDTrollGUI
 {
@@ -17,6 +18,7 @@ namespace TheCDTrollGUI
     {
         private Thread listeningThread;
         private bool ignoreCommands = false;
+        private bool respondToOwnCommands = true;
 
         public Form1()
         {
@@ -38,8 +40,16 @@ namespace TheCDTrollGUI
             Environment.Exit(0);
         }
 
-        private int ExecuteCommandWhenListening(string command)
+        private int ExecuteCommandWhenListening(string command, IPAddress senderAddress)
         {
+            if (!respondToOwnCommands)
+            {
+                foreach (var add in Connection.GetLocalAddreses())
+                {
+                    if (add.Equals(senderAddress)) return 1;
+                }
+            }
+
             if(!ignoreCommands)
             {
                 Actions.ExecuteCommand(command);
@@ -191,6 +201,11 @@ namespace TheCDTrollGUI
                 ignoreCommands = !ignoreCommands;
                 this.BackColor = ignoreCommands ? Color.Red : SystemColors.Control;
             }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            this.respondToOwnCommands = checkBox1.Checked;
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -97,7 +98,8 @@ namespace TheCDTrollGUI
                 message = "Message";
             }
 
-            MessageBox.Show(message, title, MessageBoxButtons.OK, boxIcon);
+
+            new Thread(() => MessageBox.Show(message, title, MessageBoxButtons.OK, boxIcon)).Start();
 
             return 0;
         }
