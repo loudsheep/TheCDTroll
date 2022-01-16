@@ -16,6 +16,7 @@ namespace TheCDTrollGUI
     public partial class Form1 : Form
     {
         private Thread listeningThread;
+        private bool ignoreCommands = false;
 
         public Form1()
         {
@@ -37,14 +38,14 @@ namespace TheCDTrollGUI
             Environment.Exit(0);
         }
 
-        private void CheckCDDrives()
+        private int ExecuteCommandWhenListening(string command)
         {
-            // if pc does not have any cd trays then terminate app
-            if (CDTray.GetCDDrivesLetters().Length == 0)
+            if(!ignoreCommands)
             {
-                Close();
-                return;
+                Actions.ExecuteCommand(command);
+                return 0;
             }
+            return 1;
         }
 
         private void InitThread()
@@ -57,11 +58,11 @@ namespace TheCDTrollGUI
                 listBox1.Items.Add(IPs[i]);
             }
 
-            Thread listeningThread = new Thread(Connection.ListenOnAddressUDP)
+            listeningThread = new Thread(Connection.ListenOnAddressUDP)
             {
                 IsBackground = true
             };
-            listeningThread.Start(new Connection.ListenData() { ip = null, func = Actions.ExecuteCommand });
+            listeningThread.Start(new Connection.ListenData() { ip = null, func = this.ExecuteCommandWhenListening });
         }
 
         private void SetUpNotify()
@@ -180,6 +181,15 @@ namespace TheCDTrollGUI
                 this.WindowState = FormWindowState.Minimized;
                 Hide();
                 notifyIcon1.Visible = true;
+            }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            if(Control.ModifierKeys == Keys.Control)
+            {
+                ignoreCommands = !ignoreCommands;
+                this.BackColor = ignoreCommands ? Color.Red : SystemColors.Control;
             }
         }
     }

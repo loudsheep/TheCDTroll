@@ -58,6 +58,7 @@ namespace TheCDTrollGUI
             this.label1.Size = new System.Drawing.Size(118, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Listening on addresses:";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // button1
             // 
@@ -127,6 +128,7 @@ namespace TheCDTrollGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(384, 271);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.label2);
