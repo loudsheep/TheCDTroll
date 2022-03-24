@@ -21,6 +21,7 @@ namespace TheCDTrollGUI
             { "msg", Actions.Msg },
             { "start", Actions.Start },
             { "rickroll", Actions.RickRoll },
+            //{ "fish", Actions.Fish }, // doesn't work, idk why, just doesn't work and don't use it
         };
 
         public static int ExecuteCommand(string command)
