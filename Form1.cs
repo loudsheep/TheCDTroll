@@ -42,6 +42,12 @@ namespace TheCDTrollGUI
 
         private int ExecuteCommandWhenListening(string command, IPAddress senderAddress)
         {
+            if (command.StartsWith("hostdiscovery") || command.StartsWith("hostresponse"))
+            {
+                Actions.ExecuteCommand(command);
+                return 0;
+            }
+
             if (!respondToOwnCommands)
             {
                 foreach (var add in Connection.GetLocalAddreses())
@@ -55,6 +61,7 @@ namespace TheCDTrollGUI
                 Actions.ExecuteCommand(command);
                 return 0;
             }
+
             return 1;
         }
 
@@ -91,15 +98,6 @@ namespace TheCDTrollGUI
             menu.MenuItems.Add(item2);
 
             notifyIcon1.ContextMenu = menu;
-        }
-
-        private void AbortThread()
-        {
-            try
-            {
-                listeningThread.Abort();
-            }
-            catch (Exception) { }
         }
 
         private string SMTH(string msg)
@@ -149,12 +147,13 @@ namespace TheCDTrollGUI
             this.WindowState = FormWindowState.Minimized;
             Hide();
             notifyIcon1.Visible = true;
-            //CheckCDDrives();
         }
 
         private void ExitItemClick(object Sender, EventArgs e)
         {
-            Application.Exit();
+            this.WindowState = FormWindowState.Minimized;
+            Hide();
+            notifyIcon1.Visible = false;
         }
 
         [DllImport("user32.dll")]
@@ -206,6 +205,17 @@ namespace TheCDTrollGUI
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             this.respondToOwnCommands = checkBox1.Checked;
+        }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            ScanForm f = new ScanForm();
+            f.ShowDialog();
         }
     }
 }

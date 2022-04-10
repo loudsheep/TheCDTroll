@@ -39,5 +39,14 @@ namespace TheCDTrollGUI
 
             sendUdpClient.Send(dataToSend, byteCount, targetEndPoint);
         }
+
+        public static void SendMessageUDP(IPAddress dst, int port, string message)
+        {
+            UDPSender sendUdpClient = new UDPSender();
+            Byte[] sendBytes = Encoding.ASCII.GetBytes(message);
+            IPEndPoint dstAddr = new IPEndPoint(dst, port);
+
+            sendUdpClient.Send(sendBytes, sendBytes.Length, dstAddr);
+        }
     }
 }

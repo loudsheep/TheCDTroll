@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -21,6 +23,10 @@ namespace TheCDTrollGUI
             { "msg", Actions.Msg },
             { "start", Actions.Start },
             { "rickroll", Actions.RickRoll },
+
+
+            { "hostdiscovery", Actions.HostDiscovery },
+            { "hostresponse", Actions.HostResponse },
             //{ "fish", Actions.Fish }, // doesn't work, idk why, just doesn't work and don't use it
         };
 
@@ -124,6 +130,38 @@ namespace TheCDTrollGUI
         {
             Start(new string[]{"https://www.youtube.com/watch?v=dQw4w9WgXcQ"});
 
+            return 0;
+        }
+
+        public static int HostDiscovery(string[] args)
+        {
+            try
+            {
+                string[] macs = NetworkInterface.GetAllNetworkInterfaces()
+                    .Where(nic => nic.OperationalStatus == OperationalStatus.Up && nic.NetworkInterfaceType != NetworkInterfaceType.Loopback)
+                    .Select(nic => nic.GetPhysicalAddress().ToString()).ToArray();
+                string[] ips = Connection.GetLocalAddreses().Select(i => i.ToString()).ToArray();
+                string hostName = Dns.GetHostName();
+
+                if (macs.Length == 0) macs = new string[] { "NONE" };
+                if (ips.Length == 0) ips = new string[] { "NONE" };
+                if (hostName == "") hostName = ips[0];
+
+                string message = "hostresponse " + String.Join(",", ips) + ";" + hostName + ";" + string.Join(",", macs);
+
+                Thread.Sleep(new Random().Next(1000));
+                UDPSender.SendBroadcastMessage(Connection.GetLocalAddreses()[0], 13000, message);
+            } catch 
+            {
+                return 1;
+            }
+
+            return 0;
+        }
+
+        public static int HostResponse(string[] args)
+        {
+            ScanForm.RegisterHostResponse(args);
             return 0;
         }
     }

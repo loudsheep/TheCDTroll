@@ -41,6 +41,7 @@ namespace TheCDTrollGUI
             this.label2 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.button5 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listBox1
@@ -95,6 +96,7 @@ namespace TheCDTrollGUI
             // 
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "The CD Troll";
+            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
             // listBox2
             // 
@@ -117,9 +119,9 @@ namespace TheCDTrollGUI
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(12, 209);
+            this.button4.Location = new System.Drawing.Point(197, 209);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(360, 49);
+            this.button4.Size = new System.Drawing.Size(175, 49);
             this.button4.TabIndex = 7;
             this.button4.Text = "Send";
             this.button4.UseVisualStyleBackColor = true;
@@ -138,12 +140,23 @@ namespace TheCDTrollGUI
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(12, 209);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(175, 49);
+            this.button5.TabIndex = 9;
+            this.button5.Text = "Scan network";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(384, 271);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.label2);
@@ -176,6 +189,7 @@ namespace TheCDTrollGUI
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button button5;
     }
 }
 
