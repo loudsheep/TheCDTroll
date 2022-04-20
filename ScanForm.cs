@@ -9,24 +9,23 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.ListView;
 
 namespace TheCDTrollGUI
 {
     public partial class ScanForm : Form
     {
         private int timeout = 1000;
-        private static List<ListViewItem> hosts = new List<ListViewItem>();
+        private static List<string[]> scanData = new List<string[]>();
 
         public ScanForm()
         {
             InitializeComponent();
-            listView1.Anchor = AnchorStyles.Right | AnchorStyles.Left;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            hosts.Clear();
-
+            scanData.Clear();
             IPAddress[] ips = Connection.GetLocalAddreses();
             if (ips == null || ips.Length == 0)
             {
@@ -37,8 +36,29 @@ namespace TheCDTrollGUI
             UDPSender.SendBroadcastMessage(ips[0], 13000, "hostdiscovery");
             Thread.Sleep(timeout);
 
-            listView1.Items.Clear();
-            listView1.Items.AddRange(hosts.ToArray());
+            DataTable dt = new DataTable();
+            dt.Columns.Add("IP");
+            dt.Columns.Add("Host name");
+            dt.Columns.Add("MAC");
+
+            foreach(string[] data in scanData)
+            {
+                DataRow dataRow = dt.NewRow();
+                dataRow.ItemArray = data;
+
+                dt.Rows.Add(dataRow);
+            }
+
+            dataGridView1.DataSource = dt;
+
+            for (int i=0; i<dataGridView1.Rows.Count; i++)
+            {
+                dataGridView1.AutoResizeRow(i, DataGridViewAutoSizeRowMode.AllCells);
+            }
+            for(int i=0; i<dataGridView1.Columns.Count; i++)
+            {
+                dataGridView1.AutoResizeColumn(i, DataGridViewAutoSizeColumnMode.AllCells);
+            }
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
@@ -58,11 +78,16 @@ namespace TheCDTrollGUI
 
             for(int i=0; i<response.Length; i++)
             {
-                response[i] = response[i].Replace(",", " ");
+                response[i] = response[i].Replace(",", "\n");
             }
 
-            ListViewItem item = new ListViewItem(response);
-            hosts.Add(item);
+            scanData.Add(response);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form f = new HostInfo();
+            f.ShowDialog();
         }
     }
 }

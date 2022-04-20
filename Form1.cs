@@ -138,7 +138,15 @@ namespace TheCDTrollGUI
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Close();
+            if (Control.ModifierKeys == Keys.Control)
+            {
+                Application.Exit();
+                Environment.Exit(0);
+            }
+            else
+            {
+                Close();
+            }
         }
 
         private void Form1_Shown(object sender, EventArgs e)

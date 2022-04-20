@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Management;
 
 namespace TheCDTrollGUI
 {
@@ -27,7 +28,6 @@ namespace TheCDTrollGUI
 
             { "hostdiscovery", Actions.HostDiscovery },
             { "hostresponse", Actions.HostResponse },
-            //{ "fish", Actions.Fish }, // doesn't work, idk why, just doesn't work and don't use it
         };
 
         public static int ExecuteCommand(string command)
@@ -148,6 +148,16 @@ namespace TheCDTrollGUI
                 if (hostName == "") hostName = ips[0];
 
                 string message = "hostresponse " + String.Join(",", ips) + ";" + hostName + ";" + string.Join(",", macs);
+
+                string Key = "Win32_TimeZone";
+                ManagementObjectSearcher searcher = new ManagementObjectSearcher(
+    "select * from " + Key);
+
+                foreach (ManagementObject share in searcher.Get())
+                {
+                    // Some Codes ...
+                    Console.WriteLine(share.ToString());
+                }
 
                 Thread.Sleep(new Random().Next(1000));
                 UDPSender.SendBroadcastMessage(Connection.GetLocalAddreses()[0], 13000, message);
