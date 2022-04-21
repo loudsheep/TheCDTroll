@@ -33,14 +33,13 @@
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 240);
+            this.button1.Location = new System.Drawing.Point(12, 260);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(207, 49);
             this.button1.TabIndex = 0;
@@ -50,7 +49,7 @@
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(225, 256);
+            this.numericUpDown1.Location = new System.Drawing.Point(225, 276);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -74,7 +73,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(223, 240);
+            this.label1.Location = new System.Drawing.Point(222, 260);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(48, 13);
             this.label1.TabIndex = 3;
@@ -98,25 +97,14 @@
             this.dataGridView1.Location = new System.Drawing.Point(12, 12);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(333, 222);
+            this.dataGridView1.Size = new System.Drawing.Size(333, 242);
             this.dataGridView1.TabIndex = 4;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(12, 295);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(207, 23);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Host info";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // ScanForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(358, 321);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.numericUpDown1);
@@ -138,6 +126,5 @@
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button button2;
     }
 }

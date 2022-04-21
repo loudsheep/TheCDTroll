@@ -86,8 +86,6 @@ namespace TheCDTrollGUI
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Form f = new HostInfo();
-            f.ShowDialog();
         }
     }
 }
